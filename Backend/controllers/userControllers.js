@@ -20,8 +20,8 @@ export const  registerUser=async(req,res)=>{
 
         await newUser.save()
         res.status(201).json({message:"user register successfully"});
-
     }
+    
     catch(error){
         console.log("Error",error);
          res.status(500).json({message:"already Exists"});

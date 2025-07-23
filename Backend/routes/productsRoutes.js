@@ -1,12 +1,17 @@
 import express from "express"
-import {createForm, wishlist} from "../controllers/productsControllers.js"
+import {createForm, deleteProduct, getAllProducts, updateProduct, wishlist} from "../controllers/productsControllers.js"
 import {CartData} from "../controllers/productsControllers.js"
+import { uploadCloud } from "../middleware/cloudinaryUpload.js";
+import checkToken from "../middleware/authCheckMiddleware.js";
 
 const router =express.Router();
 
-router.post("/add",createForm);
-router.post("/cart/:id",CartData);
-router.post("/wishlist/:id",wishlist);
+router.post("/add",uploadCloud.single("image"),createForm);
+router.get("/all", getAllProducts);
+router.post("/cart/:id",checkToken,CartData);
+router.post("/wishlist/:id",checkToken,wishlist);
+router.put("/update/:id", updateProduct);
+router.delete("/delete/:id", deleteProduct);
 
 export default router;
 

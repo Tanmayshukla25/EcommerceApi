@@ -5,6 +5,7 @@ import connectToDB from "./config/db.js"
 import productRouter from "./routes/productsRoutes.js"         
 import userRouter from "./routes/userRoutes.js"
 // import "dotenv/config"
+import cookieParser from 'cookie-parser';
 
 
 // dotenv.config();
@@ -21,10 +22,12 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
                                                                         
 
 app.use("/product",productRouter)
 app.use("/user",userRouter)
+
 
 
 

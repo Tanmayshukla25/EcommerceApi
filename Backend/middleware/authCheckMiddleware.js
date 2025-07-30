@@ -13,7 +13,8 @@ export function checkToken(req, res, next) {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.User = decoded.id;
+       req.User = { _id: decoded.id }; // ✅ This sets req.User as an object with _id
+
         console.log(decoded.id);
         console.log(req.User);
         
@@ -26,3 +27,6 @@ export function checkToken(req, res, next) {
 }
 
 export default checkToken;
+
+
+

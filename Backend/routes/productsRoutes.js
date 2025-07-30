@@ -1,5 +1,5 @@
 import express from "express"
-import {createForm, deleteProduct, getAllProducts, updateProduct, wishlist} from "../controllers/productsControllers.js"
+import {createForm, deleteProduct, getAllProducts, getCartData, getSingleProduct, updateProduct, wishlist} from "../controllers/productsControllers.js"
 import {CartData} from "../controllers/productsControllers.js"
 import { uploadCloud } from "../middleware/cloudinaryUpload.js";
 import checkToken from "../middleware/authCheckMiddleware.js";
@@ -12,6 +12,9 @@ router.post("/cart/:id",checkToken,CartData);
 router.post("/wishlist/:id",checkToken,wishlist);
 router.put("/update/:id", updateProduct);
 router.delete("/delete/:id", deleteProduct);
+router.get("/:id", getSingleProduct);
+router.get("/cart/data", checkToken, getCartData);
+
 
 export default router;
 

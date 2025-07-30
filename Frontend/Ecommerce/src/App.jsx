@@ -1,12 +1,14 @@
 
+
 import './App.css'
-import ProductList from './ProductList'
+import Router from './Router'
 
 function App() {
  
   return (
     <>
-     <ProductList/>
+      <Router/>
+    
     </>
   )
 }

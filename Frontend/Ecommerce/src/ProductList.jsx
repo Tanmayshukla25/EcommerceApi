@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const ProductList = () => {
@@ -9,6 +10,8 @@ const ProductList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:4040/product/all");
+        // const response = await axios.get("http://localhost:4040/product/cart");
+      
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -19,7 +22,7 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-200 py-8 mt-20">
+    <div className="min-h-screen bg-gray-500 py-8 mt-20">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-6">All Products</h2>
 
@@ -29,13 +32,19 @@ const ProductList = () => {
               key={product._id}
               className=" rounded-lg bg-gray-50 shadow hover:shadow-md transition overflow-hidden group"
             >
-              <div className="aspect-square p-4 bg-gray-50 flex items-center justify-center overflow-hidden">
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
-                  className="max-w-full max-h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              <Link to={`/product/${product._id}`}>
+                <div className="aspect-square w-[350px] h-[300px] p-4 bg-gray-50 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={
+                      product.images && product.images.length > 0
+                        ? product.images[0]
+                        : "/placeholder.jpg"
+                    }
+                    alt={product.name || "Product Image"}
+                    className="object-cover w-full h-full rounded-2xl group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              </Link>
 
               <div className="p-4 bg-gray-50">
                 <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600">
@@ -50,8 +59,10 @@ const ProductList = () => {
                 </p>
 
                 <div className="flex items-center justify-start mt-2 space-x-1">
-                  <span className="text-sm text-gray-600 font-medium">Price:</span>
-                
+                  <span className="text-sm text-gray-600 font-medium">
+                    Price:
+                  </span>
+
                   <span className="text-lg font-bold text-green-600">
                     ₹{product.discountedPrice}
                   </span>
@@ -81,6 +92,7 @@ const ProductList = () => {
           ))}
         </div>
       </div>
+     
     </div>
   );
 };

@@ -4,6 +4,8 @@ import  "dotenv/config"
 import connectToDB from "./config/db.js"
 import productRouter from "./routes/productsRoutes.js"         
 import userRouter from "./routes/userRoutes.js"
+import swaggerUi from 'swagger-ui-express'
+import swaggerSpec from "./swagger.js";
 // import "dotenv/config"
 import cookieParser from 'cookie-parser';
 
@@ -23,6 +25,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
                                                                         
 
 app.use("/product",productRouter)

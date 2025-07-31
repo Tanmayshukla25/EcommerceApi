@@ -1,7 +1,7 @@
 
 
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link, useNavigate, useLocation,  } from "react-router-dom";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { FaBars, FaTimes, FaHeart } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,7 +10,7 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import axios from "axios";
 
 function Header() {
-  const { id } = useParams();
+  // const { id } = useParams();
   const { input, setInput, Cart, wishlistIds, setCart } = useContext(UserContext);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,7 @@ function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex justify-between items-center h-16">
           <div className="text-2xl font-bold text-gray-900">
-            <Link to="/" className="hover:text-blue-600">Ecommerce</Link>
+            <Link to="/" className="hover:text-blue-600">Jewellery-Shop</Link>
           </div>
 
           <div className="md:hidden">

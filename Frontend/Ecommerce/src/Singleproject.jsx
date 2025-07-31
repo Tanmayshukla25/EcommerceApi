@@ -51,7 +51,7 @@ function Singleproject() {
    async function fetchUser() {
   try {
     const response = await axios.get(
-          "http://localhost:4040/user/checkToken", // ✅ matches your GET route
+          "http://localhost:4040/user/checkToken", 
       { withCredentials: true }
     );
 
@@ -78,49 +78,7 @@ setCurrentUser(user);
     fetchUser();
   }, []);
 
-//  async function handleAddCart() {
-//   if (!currentUser) {
-//     navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
-//     return;
-//   }
 
-//   try {
-//     const userId = currentUser.data?._id;
-//     if (!userId) {
-//       toast.error("User ID not found. Please log in again.");
-//       return;
-//     }
-
-//     // Add item to cart
-//     await axios.post(
-//       `http://localhost:4040/product/cart/${id}`,
-//       {
-//         userId: userId,
-//         quantity: Quantity || 1,
-//       },
-//       { withCredentials: true }
-//     );
-
-//     // ✅ Fetch updated cart to update count
-//     const response = await axios.get("http://localhost:4040/product/cart", {
-//       withCredentials: true,
-//     });
-
-//     if (response.data && response.data.cart) {
-//       setCart(response.data.cart.length);
-//     }
-
-//     toast.success("Added to Cart Successfully", {
-//       position: "bottom-right",
-//       autoClose: 3000,
-//     });
-
-//     navigate("/cart");
-//   } catch (error) {
-//     console.log("Add to cart error:", error);
-//     toast.error("Failed to add to cart");
-//   }
-// }
 async function handleAddCart() {
   if (!currentUser) {
     navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
@@ -135,19 +93,7 @@ async function handleAddCart() {
     );
     console.log(Cart);
 
-    // ✅ Only update cart after successful add
-const res = await axios.get("http://localhost:4040/product/cart/data", {
-  withCredentials: true,
-});
 
-    if (res.data && Array.isArray(res.data.cart)) {
-      setCart(res.data.cart.length);
-    }
-
-    toast.success("Added to Cart Successfully", {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
 
   
     navigate("/cart");
@@ -161,24 +107,7 @@ const res = await axios.get("http://localhost:4040/product/cart/data", {
 
 
 
-  function handleWishlist() {
-    if (!currentUser) {
-      navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
-      return;
-    }
-
-    if (!product?._id) {
-      console.warn("Product _id is undefined");
-      return;
-    }
-
-    if (!wishlistIds.includes(product._id)) {
-      setWishlistIds([...wishlistIds, product._id]);
-    } else {
-      setWishlistIds(wishlistIds.filter((itemId) => itemId !== product._id));
-    }
-  }
-
+ 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -262,7 +191,7 @@ const res = await axios.get("http://localhost:4040/product/cart/data", {
                 </button>
 
                 <button
-                  onClick={handleWishlist}
+                  // onClick={handleWishlist}
                   className={`flex items-center justify-center space-x-2 py-3 px-6 rounded-lg font-semibold border-2 transition-all ${
                     isWishlisted
                       ? "bg-red-50 border-red-500 text-red-600"

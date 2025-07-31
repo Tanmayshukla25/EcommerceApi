@@ -64,37 +64,7 @@ try {
   }
 
   
-  // try {
-  //   const userId = req.body.userId;  
-  //       const productId = req.params.id; 
-  //   const quantity = req.body.quantity || 1;
-  //   const product = await Product.findById(productId);
-  //   if (!product) {
-  //     return res.status(404).json({ error: "Product not found" });
-  //   }
-
-  //   const user = await User.findById(userId).populate("cart.product");
-  //   if (!user) {
-  //     return res.status(404).json({ error: "User not found" });
-  //   }
-
-  //   const existingItem = user.cart.find(
-  //     (item) => item.product._id.toString() === productId
-  //   );
-
-  //   if (existingItem) {
-  //     existingItem.quantity += quantity;
-  //   } else {
-  //     user.cart.push({ product: productId, quantity });
-  //   }
-
-  //   await user.save();
-
-  //   res.status(200).json({ message: "Cart updated successfully", cart: user.cart });
-  // } catch (error) {
-  
-  //   res.status(500).json({ error: "Error updating cart", details: error.message });
-  // }
+ 
 }
 
 export async function wishlist(req, res) {
@@ -214,7 +184,32 @@ export async function getCartData(req, res) {
       error: error.message,
     });
   }
+}
 
+
+export async function removeData(req, res) {
+  try {
+    const userId = req.User.id;
+    const productId = req.params.id;
+
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID is required" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: { product: productId } } },
+      { new: true }
+    ).populate("cart.product");
+
+    return res.status(200).json({
+      message: "Product removed from cart",
+      cart: updatedUser.cart,
+    });
+  } catch (error) {
+    console.error("Error removing product from cart:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 }
 
 

@@ -6,17 +6,17 @@ import 'dotenv/config';
 export function checkToken(req, res, next) {
     const token = req.cookies.userToken;
 
-    console.log(token);
+    // console.log(token);
     
     if (!token ) return res.status(401).send({ message: "No Token Found" });
     try {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-       req.User = { _id: decoded.id }; // ✅ This sets req.User as an object with _id
+       req.User = { _id: decoded.id }; 
 
-        console.log(decoded.id);
-        console.log(req.User);
+        // console.log(decoded.id);
+        // console.log(req.User);
         
 
         next();

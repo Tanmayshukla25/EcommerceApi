@@ -5,10 +5,10 @@ import { RxCross2 } from "react-icons/rx";
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 function Cart() {
-  const { Cart, setCart, cartItems, setCartItems } = useContext(UserContext);
+  const { Cart, setCart, cartItems, setCartItems ,currentUser} = useContext(UserContext);
   const [totalAmount, setTotalAmount] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -43,23 +43,39 @@ function Cart() {
     }
 
     fetchCart();
+    
   }, []);
 
-  const handleRemove = async (itemId) => {
-    try {
-      await axios.delete(
-        `http://localhost:4040/product/cartData/remove/${itemId}`,
-        {
-          withCredentials: true,
-        }
-      );
 
-      toast.success("Product removed from cart");
-    } catch (error) {
-      console.error("Remove error:", error);
-      toast.error("Failed to remove product");
-    }
-  };
+
+const handleRemove = async (itemId) => {
+  if (!currentUser) {
+    Navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
+    return;
+  }
+
+  try {
+    await axios.delete(
+      `http://localhost:4040/product/cartData/remove/${itemId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+  
+    const updatedCart = cartItems.filter(
+      (item) => item.product._id !== itemId
+    );
+
+    setCartItems(updatedCart);
+    setCart(updatedCart.length);
+  } catch (error) {
+    console.error("Remove error:", error);
+    toast.error("Failed to remove product");
+  }
+};
+
+ 
   useEffect(() => {
     const total = cartItems.reduce((acc, item) => {
       const price = item.product?.discountedPrice || 0;

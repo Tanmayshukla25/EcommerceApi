@@ -169,6 +169,7 @@ export const getSingleProduct = async (req, res) => {
 export async function getCartData(req, res) {
    try {
     const userId = req.User._id;
+    console.log(userId)
 
     const user = await User.findById(userId).populate("cart.product");
 
@@ -188,8 +189,12 @@ export async function getCartData(req, res) {
 
 
 export async function removeData(req, res) {
+  console.log("Tanmay");
+  
   try {
-    const userId = req.User.id;
+
+    
+    const userId = req.User._id;
     const productId = req.params.id;
 
     if (!productId) {
@@ -208,7 +213,7 @@ export async function removeData(req, res) {
     });
   } catch (error) {
     console.error("Error removing product from cart:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    // return res.status(500).json({ message: "Internal server error" });
   }
 }
 

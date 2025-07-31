@@ -188,7 +188,7 @@ router.get("/cart/data", checkToken, getCartData);
  *       200:
  *         description: Product removed from cart
  */
-router.delete("/cartData/remove/:productId", removeData);
+router.delete("/cartData/remove/:id",checkToken, removeData);
 
 
 

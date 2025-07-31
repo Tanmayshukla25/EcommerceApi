@@ -16,16 +16,15 @@ function Singleproject() {
   const [product, setProduct] = useState({});
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
 
   const {
     wishlistIds,
-    setWishlistIds,
+    // setWishlistIds,
 
     Quantity,
-
+currentUser,
     Cart,
-    setCart,
+    // setCart,
   } = useContext(UserContext);
 
   const isWishlisted = wishlistIds.includes(product?.id);
@@ -47,36 +46,7 @@ function Singleproject() {
     if (id) fetchProduct();
   }, [id]);
 
-  useEffect(() => {
-   async function fetchUser() {
-  try {
-    const response = await axios.get(
-          "http://localhost:4040/user/checkToken", 
-      { withCredentials: true }
-    );
-
-    // if (!response.data?.User) {
-    //   throw new Error("User not found in token response");
-    // }
-
-    // setCurrentUser(response.data.User);
-    const user = response.data?.User || response.data?.user || response.data;
-
-if (!user || !user._id) {
-  throw new Error("User not found in token response");
-}
-
-setCurrentUser(user);
-
-  } catch (e) {
-    console.error("User fetch error:", e);
-    setCurrentUser(null);
-  }
-}
-
-
-    fetchUser();
-  }, []);
+ 
 
 
 async function handleAddCart() {

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { UserContext } from "./UserContext";
 import { Outlet, useParams } from "react-router-dom";
 import Header from "./Header";
+import axios from "axios";
+import { useEffect } from "react";
 
 function First() {
   const [Cart, setCart] = useState(0);
@@ -13,6 +15,35 @@ function First() {
   const [cartItems, setCartItems] = useState([]);
   const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
+
+
+    useEffect(() => {
+   async function fetchUser() {
+  try {
+    const response = await axios.get(
+          "http://localhost:4040/user/checkToken", 
+      { withCredentials: true }
+    );
+
+  
+    const user = response.data?.User || response.data?.user || response.data;
+
+if (!user || !user._id) {
+  throw new Error("User not found in token response");
+}
+
+setCurrentUser(user);
+
+  } catch (e) {
+    console.error("User fetch error:", e);
+    setCurrentUser(null);
+  }
+}
+
+
+    fetchUser();
+  }, []);
 
   const AddtoWishlist = (productId) => {
     setWishlistIds((prev) => {
@@ -45,6 +76,7 @@ function First() {
     AddtoWishlist,
     input,
     setInput,
+    currentUser
   }}
 >
   <Header />

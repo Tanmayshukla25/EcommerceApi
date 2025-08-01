@@ -6,6 +6,7 @@ import { PiCurrencyDollarBold } from "react-icons/pi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import instance from "./axiosConfig.js";
 
 const Wishlist = () => {
   const { wishlistIds, setWishlistIds } = useContext(UserContext);
@@ -15,7 +16,7 @@ const Wishlist = () => {
   useEffect(() => {
     async function fetchWishlist() {
       try {
-        const response = await axios.get(
+        const response = await instance.get(
           "http://localhost:4040/product/wishlist/Data",
           {
             withCredentials: true,

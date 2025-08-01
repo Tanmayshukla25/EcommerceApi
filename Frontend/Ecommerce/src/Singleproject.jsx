@@ -6,6 +6,7 @@ import { HiMiniShoppingCart } from "react-icons/hi2";
 import { FaHeart, FaStar, FaArrowLeft } from "react-icons/fa";
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import { ToastContainer, toast } from "react-toastify";
+import instance from "./axiosConfig.js";
 
 function Singleproject() {
   const { id } = useParams();
@@ -36,7 +37,7 @@ currentUser,
     async function fetchProduct() {
       setLoading(true);
       try {
-        const { data } = await axios.get(`http://localhost:4040/product/${id}`);
+        const { data } = await instance.get(`http://localhost:4040/product/${id}`);
 
         setProduct(data);
       } catch (e) {
@@ -60,7 +61,7 @@ async function handleAddCart() {
     setCartLoading(true);
 
   try {
-    await axios.post(
+    await instance.post(
       `http://localhost:4040/product/cart/${id}`,
       { quantity: Quantity || 1 },
       { withCredentials: true }
@@ -95,7 +96,7 @@ async function HandleWishlist() {
   }
     setWishlistLoading(true);
   try {
-    await axios.post(`http://localhost:4040/product/wishlist/${id}`, {}, { withCredentials: true })
+    await instance.post(`http://localhost:4040/product/wishlist/${id}`, {}, { withCredentials: true })
     toast.success("SuccessFully AddToWishlist",{
   autoClose:2000
 })

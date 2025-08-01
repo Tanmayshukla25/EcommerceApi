@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import instance from "./axiosConfig.js";
 
 function AddProductForm() {
   const [formData, setFormData] = useState({
@@ -43,7 +44,7 @@ function AddProductForm() {
     }
 
     try {
-      const res = await axios.post(
+      const res = await instance.post(
         "http://localhost:4040/product/add",
         payload
       );

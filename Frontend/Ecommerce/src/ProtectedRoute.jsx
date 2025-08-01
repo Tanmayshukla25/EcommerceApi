@@ -1,8 +1,9 @@
 import React, { useEffect} from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+
 import { useContext } from "react";
 import { UserContext } from "./UserContext";
+import instance from './axiosConfig.js';
 
 function ProtectedRoute({ children }) {
     const {setUser,user ,setLoading,loading} = useContext(UserContext);
@@ -12,7 +13,7 @@ function ProtectedRoute({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:4040/user/checkToken", {
+        const res = await instance.get("http://localhost:4040/user/checkToken", {
           withCredentials: true,
         });
         setUser(res.data);

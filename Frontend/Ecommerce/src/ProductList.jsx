@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import instance from "./axiosConfig.js";
 
 
 const ProductList = () => {
@@ -9,7 +10,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:4040/product/all");
+        const response = await instance.get("http://localhost:4040/product/all");
         // const response = await axios.get("http://localhost:4040/product/cart");
       
         setProducts(response.data);
@@ -24,16 +25,16 @@ const ProductList = () => {
   return (
     <div className="min-h-screen bg-gray-500 py-8 ">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">All Products</h2>
+        <h2 className="text-3xl font-bold  mb-6">All Products</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
           {products.map((product) => (
             <div
               key={product._id}
-              className=" rounded-lg bg-gray-50 shadow hover:shadow-md transition overflow-hidden group"
+              className=" rounded-lg bg-gray-300 shadow hover:shadow-md transition overflow-hidden group"
             >
               <Link to={`/product/${product._id}`}>
-                <div className="aspect-square w-[350px] h-[300px] p-4 bg-gray-50 flex items-center justify-center overflow-hidden">
+                <div className="aspect-square w-[350px] bg-gray-300 h-[300px] p-4  flex items-center justify-center overflow-hidden">
                   <img
                     src={
                       product.images && product.images.length > 0
@@ -46,7 +47,7 @@ const ProductList = () => {
                 </div>
               </Link>
 
-              <div className="p-4 bg-gray-50">
+              <div className="p-4 bg-gray-300">
                 <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600">
                   {product.name}
                 </h3>

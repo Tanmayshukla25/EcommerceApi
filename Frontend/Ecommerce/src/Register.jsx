@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
+
 import { useNavigate, Link } from "react-router-dom";
+import instance from "./axiosConfig.js";
 
 function Register() {
   const [name, setName] = useState("");
@@ -44,7 +45,7 @@ function Register() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post(
+      const res = await instance.post(
          "http://localhost:4040/user/register",
         formData,
         {

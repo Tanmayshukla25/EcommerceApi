@@ -2,8 +2,9 @@ import { useState } from "react";
 import { UserContext } from "./UserContext";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import axios from "axios";
+
 import { useEffect } from "react";
+import instance from "./axiosConfig.js";
 
 function First() {
   const [Cart, setCart] = useState(0);
@@ -22,7 +23,7 @@ function First() {
     useEffect(() => {
    async function fetchUser() {
   try {
-    const response = await axios.get(
+    const response = await instance.get(
           "http://localhost:4040/user/checkToken", 
       { withCredentials: true }
     );

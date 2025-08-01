@@ -6,6 +6,7 @@ import { PiCurrencyDollarBold } from "react-icons/pi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, Navigate } from "react-router-dom";
+import instance from "./axiosConfig.js";
 
 function Cart() {
   const { Cart, setCart, cartItems, setCartItems ,currentUser} = useContext(UserContext);
@@ -16,7 +17,7 @@ function Cart() {
     async function fetchCart() {
       try {
         setLoading(true);
-        const response = await axios.get(
+        const response = await instance.get(
           "http://localhost:4040/product/cart/data",
           {
             withCredentials: true,
@@ -56,7 +57,7 @@ const handleRemove = async (itemId) => {
   }
 
   try {
-    await axios.delete(
+    await instance.delete(
       `http://localhost:4040/product/cartData/remove/${itemId}`,
       {
         withCredentials: true,

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { UserContext } from "./UserContext";
+import instance from "./axiosConfig.js";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ function Login() {
     setIsLoading(true);
 
     try {
-       await axios.post("http://localhost:4040/user/login", { email, password }, {
+       await instance.post("http://localhost:4040/user/login", { email, password }, {
         withCredentials: true,
       });
 

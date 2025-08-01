@@ -24,9 +24,10 @@ function Cart() {
         );
 
         const cart = response.data?.cart;
-
+        console.log(cart);
+        
         if (Array.isArray(cart)) {
-          setCartItems(cart);
+          setCartItems(cart); 
           setCart(cart.length);
         } else {
           setCartItems([]);
@@ -83,6 +84,9 @@ const handleRemove = async (itemId) => {
     }, 0);
     setTotalAmount(total);
   }, [cartItems]);
+
+  console.log(cartItems);
+  
 
   if (loading) {
     return (

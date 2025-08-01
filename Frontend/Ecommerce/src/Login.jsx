@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate, useLocation, Link, useSearchParams } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { UserContext } from "./UserContext";
 
@@ -10,10 +10,10 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { setCart } = useContext(UserContext);
+  
 
   const navigate = useNavigate();
-  const location = useLocation();
+  
   const [searchParams] = useSearchParams();
   const from = searchParams.get("referer") || "/";
 
@@ -22,7 +22,7 @@ function Login() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:4040/user/login", { email, password }, {
+       await axios.post("http://localhost:4040/user/login", { email, password }, {
         withCredentials: true,
       });
 

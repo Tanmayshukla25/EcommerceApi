@@ -10,10 +10,11 @@ import Login from "./Login.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 import "./App.css"
-import AddToCart from "./AddToCart.jsx";
+
 import ProductList from "./ProductList.jsx";
 import Register from "./Register.jsx";
 import AddProductForm from "./AddProductForm.jsx";
+import Wishlist from "./AddToCart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,10 +30,10 @@ const router = createBrowserRouter([
 
 
         {
-        path: "AddToCart",
+        path: "Wishlist",
         element: (
           <ProtectedRoute>
-       <AddToCart /> 
+       <Wishlist /> 
           </ProtectedRoute>
         ),
       },

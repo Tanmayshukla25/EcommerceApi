@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { UserContext } from "./UserContext";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import axios from "axios";
 import { useEffect } from "react";
@@ -16,6 +16,7 @@ function First() {
   const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
+  const [userLoading, setUserLoading] = useState(true);
 
 
     useEffect(() => {
@@ -27,7 +28,7 @@ function First() {
     );
 
   
-    const user = response.data?.User || response.data?.user || response.data;
+    const user = response.data?.User
 
 if (!user || !user._id) {
   throw new Error("User not found in token response");
@@ -44,6 +45,7 @@ setCurrentUser(user);
 
     fetchUser();
   }, []);
+
 
   const AddtoWishlist = (productId) => {
     setWishlistIds((prev) => {

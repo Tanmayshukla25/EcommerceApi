@@ -1,5 +1,5 @@
 import express from "express"
-import {createForm, deleteProduct, getAllProducts, getCartData, getSingleProduct, removeData, updateProduct, wishlist} from "../controllers/productsControllers.js"
+import {createForm, deleteProduct, getAllProducts, getCartData, getSingleProduct, getWishlistData, removeData, updateProduct, wishlist, wishListRemoveData} from "../controllers/productsControllers.js"
 import {CartData} from "../controllers/productsControllers.js"
 import { uploadCloud } from "../middleware/cloudinaryUpload.js";
 import checkToken from "../middleware/authCheckMiddleware.js";
@@ -100,6 +100,9 @@ router.post("/cart/:id",checkToken,CartData);
  */
 router.post("/wishlist/:id",checkToken,wishlist);
 
+
+router.get("/wishlist/Data",checkToken,getWishlistData)
+
 /**
  * @swagger
  * /product/update/{id}:
@@ -189,6 +192,7 @@ router.get("/cart/data", checkToken, getCartData);
  *         description: Product removed from cart
  */
 router.delete("/cartData/remove/:id",checkToken, removeData);
+router.delete("/wishList/remove/:id",checkToken, wishListRemoveData);
 
 
 

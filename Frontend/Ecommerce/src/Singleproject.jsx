@@ -64,7 +64,7 @@ async function handleAddCart() {
     console.log(Cart);
 
 
-
+toast.success("Product Add")
   
     navigate("/cart");
 
@@ -76,6 +76,24 @@ async function handleAddCart() {
 }
 
 
+async function HandleWishlist() {
+  console.log("Tanmay");
+  console.log(currentUser);
+  
+  
+  if (!currentUser) {
+    navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
+    return;
+  }
+  try {
+    await axios.post(`http://localhost:4040/product/wishlist/${id}`, {}, { withCredentials: true })
+     navigate("/Wishlist");
+  } catch (error) {
+     console.log("Add to cart error:", error);
+    toast.error("Failed to add to cart");
+    
+  }
+}
 
  
   if (loading) {
@@ -161,7 +179,7 @@ async function handleAddCart() {
                 </button>
 
                 <button
-                  // onClick={handleWishlist}
+                 onClick={HandleWishlist}
                   className={`flex items-center justify-center space-x-2 py-3 px-6 rounded-lg font-semibold border-2 transition-all ${
                     isWishlisted
                       ? "bg-red-50 border-red-500 text-red-600"

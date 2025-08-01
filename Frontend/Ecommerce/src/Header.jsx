@@ -93,7 +93,7 @@ function Header() {
               </sup>
             </Link>
 
-            <Link to="/AddToCart" className="relative text-gray-700 hover:text-blue-600">
+            <Link to="/Wishlist" className="relative text-gray-700 hover:text-blue-600">
               <FaHeart size={20} />
               <sup className="absolute -top-2 -right-4 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {wishlistIds.length}

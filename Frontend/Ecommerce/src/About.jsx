@@ -3,65 +3,62 @@ import { FaBoxOpen, FaTags, FaLock, FaTruck, FaHeadset } from "react-icons/fa";
 
 function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br mt-10 from-blue-50 to-indigo-100  px-4 py-12">
-      <div className="max-w-4xl w-full bg-white rounded-xl shadow-xl p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
+    <div className="min-h-screen bg-gray-500 flex items-center justify-center px-4 py-12">
+      <div className="max-w-4xl w-full bg-white rounded-2xl shadow-2xl p-10 space-y-8">
+        <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-4 tracking-tight">
           📦 Start Shopping Today!
         </h2>
-        <p className="text-center text-gray-600">
+        <p className="text-center text-gray-600 max-w-2xl mx-auto text-lg">
           Whether you're upgrading your wardrobe, hunting for the perfect gadget, or finding home essentials, we’re here to make it all possible—fast, simple, and safe.
         </p>
 
-       
-        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
-          <FaBoxOpen className="text-blue-600 text-2xl mt-1" />
-          <div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="p-3 bg-blue-100 rounded-full mb-4">
+              <FaBoxOpen className="text-blue-600 text-2xl" />
+            </div>
             <h3 className="text-xl font-semibold text-gray-800">Wide Range of Products</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-500 mt-2">
               From fashion to electronics, home decor to daily essentials—we’ve got something for everyone.
             </p>
           </div>
-        </div>
-
-   
-        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
-          <FaTags className="text-green-500 text-2xl mt-1" />
-          <div>
+          
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="p-3 bg-green-100 rounded-full mb-4">
+              <FaTags className="text-green-600 text-2xl" />
+            </div>
             <h3 className="text-xl font-semibold text-gray-800">Affordable Prices</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-500 mt-2">
               Get the best deals without compromising on quality.
             </p>
           </div>
-        </div>
 
-       
-        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
-          <FaLock className="text-purple-500 text-2xl mt-1" />
-          <div>
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="p-3 bg-purple-100 rounded-full mb-4">
+              <FaLock className="text-purple-600 text-2xl" />
+            </div>
             <h3 className="text-xl font-semibold text-gray-800">Secure Shopping</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-500 mt-2">
               Shop with confidence through our encrypted and safe checkout process.
             </p>
           </div>
-        </div>
 
-       
-        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
-          <FaTruck className="text-orange-500 text-2xl mt-1" />
-          <div>
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="p-3 bg-orange-100 rounded-full mb-4">
+              <FaTruck className="text-orange-600 text-2xl" />
+            </div>
             <h3 className="text-xl font-semibold text-gray-800">Fast & Reliable Delivery</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-500 mt-2">
               Get your orders delivered quickly, right to your doorstep.
             </p>
           </div>
-        </div>
 
-       
-        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
-          <FaHeadset className="text-pink-500 text-2xl mt-1" />
-          <div>
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="p-3 bg-pink-100 rounded-full mb-4">
+              <FaHeadset className="text-pink-600 text-2xl" />
+            </div>
             <h3 className="text-xl font-semibold text-gray-800">Customer-Centric Support</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-500 mt-2">
               Our team is here to help you, always—before, during, and after your purchase.
             </p>
           </div>

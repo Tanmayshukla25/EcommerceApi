@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import instance from "./axiosConfig.js";
 
@@ -62,7 +61,7 @@ function AddProductForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br mt-20 from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br  from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
         <div
@@ -110,7 +109,7 @@ function AddProductForm() {
                 />
               </div>
 
-              {/* Category */}
+           
               <div className="group">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Category
@@ -124,7 +123,7 @@ function AddProductForm() {
                 />
               </div>
 
-              {/* Quantity and Prices Row */}
+             
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="group">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -169,7 +168,7 @@ function AddProductForm() {
                 </div>
               </div>
 
-              {/* Description */}
+              
               <div className="group">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Description
@@ -184,7 +183,6 @@ function AddProductForm() {
                 />
               </div>
 
-              {/* File Upload */}
               <div className="group">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Product Images
@@ -220,7 +218,7 @@ function AddProductForm() {
                 </div>
               </div>
 
-              {/* Submit Button */}
+            
               <button
                 type="submit"
                 disabled={loading}
@@ -243,7 +241,7 @@ function AddProductForm() {
           </div>
         </form>
 
-        {/* Footer */}
+       
         <div className="text-center mt-6">
           <p className="text-gray-500 text-sm">
             All fields are required unless marked optional

@@ -68,6 +68,8 @@ const fetchCart = async () => {
       setUser(res.data);
     } catch (err) {
       setUser(null);
+      console.log(err);
+      
     } finally {
       setLoading(false);
     }
@@ -170,7 +172,7 @@ const fetchCart = async () => {
                 </Link>
 
               
-                <Link to="/AddProductForm" className="text-white hover:text-green-300 transition-all duration-300 bg-green-600 bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 hover:scale-110">
+                <Link to="/AddProductForm" className="text-white hover:text-green-300 transition-all duration-300 bg-gray-500 bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 hover:scale-110">
                   <BsPlusSquareFill size={18} />
                 </Link>
 

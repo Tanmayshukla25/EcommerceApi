@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import { UserContext } from "./UserContext";
 import { RxCross2 } from "react-icons/rx";
 import { PiCurrencyDollarBold } from "react-icons/pi";
@@ -91,14 +90,14 @@ const handleRemove = async (itemId) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen  flex items-center justify-center">
         <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-8">
+    <div className="min-h-screen bg-gray-500 py-10 px-4 sm:px-8">
       <ToastContainer />
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">

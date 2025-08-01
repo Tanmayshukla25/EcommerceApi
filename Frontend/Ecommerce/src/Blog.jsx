@@ -3,7 +3,7 @@ import { FaShoppingBasket, FaTshirt, FaLaptop, FaGift, FaRecycle } from "react-i
 
 function Blog() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gray-500 flex items-center justify-center px-4 py-12">
       <div className="max-w-3xl w-full bg-white rounded-xl shadow-xl p-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">📝 Top Products 2025</h2>
         <ul className="space-y-5">

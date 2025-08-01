@@ -17,7 +17,7 @@ function First() {
   const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  const [userLoading, setUserLoading] = useState(true);
+
 
 
     useEffect(() => {

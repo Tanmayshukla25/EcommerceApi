@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -68,7 +68,7 @@ function Login() {
 
         <div className="bg-white rounded-xl shadow-lg p-8">
           <form onSubmit={handleLogin} className="space-y-6">
-            {/* Email */}
+          
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -84,7 +84,7 @@ function Login() {
               />
             </div>
 
-            {/* Password */}
+        
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -109,7 +109,7 @@ function Login() {
               </div>
             </div>
 
-            {/* Submit Button */}
+           
             <button
               type="submit"
               disabled={isLoading}
@@ -130,7 +130,7 @@ function Login() {
             </button>
           </form>
 
-          {/* Register Link */}
+          
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?{" "}
@@ -144,7 +144,7 @@ function Login() {
           </div>
         </div>
 
-        {/* Footer Info */}
+     
         <div className="text-center text-sm text-gray-500">
           <p>Protected by reCAPTCHA and subject to our Privacy Policy and Terms of Service.</p>
         </div>

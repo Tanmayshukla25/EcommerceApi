@@ -16,6 +16,9 @@ function Singleproject() {
   const [product, setProduct] = useState({});
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [cartLoading, setCartLoading] = useState(false);
+const [wishlistLoading, setWishlistLoading] = useState(false);
+
 
   const {
     wishlistIds,
@@ -54,6 +57,7 @@ async function handleAddCart() {
     navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
     return;
   }
+    setCartLoading(true);
 
   try {
     await axios.post(
@@ -64,7 +68,9 @@ async function handleAddCart() {
     console.log(Cart);
 
 
-toast.success("Product Add")
+toast.success("Product Add",{
+  autoClose:2000
+})
   
     navigate("/cart");
 
@@ -72,6 +78,8 @@ toast.success("Product Add")
   } catch (error) {
     console.log("Add to cart error:", error);
     toast.error("Failed to add to cart");
+  } finally {
+    setCartLoading(false);
   }
 }
 
@@ -85,13 +93,19 @@ async function HandleWishlist() {
     navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
     return;
   }
+    setWishlistLoading(true);
   try {
     await axios.post(`http://localhost:4040/product/wishlist/${id}`, {}, { withCredentials: true })
+    toast.success("SuccessFully AddToWishlist",{
+  autoClose:2000
+})
      navigate("/Wishlist");
   } catch (error) {
      console.log("Add to cart error:", error);
     toast.error("Failed to add to cart");
     
+  } finally {
+    setWishlistLoading(false);
   }
 }
 

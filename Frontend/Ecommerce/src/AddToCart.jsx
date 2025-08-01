@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "./UserContext";
 import { RxCross2 } from "react-icons/rx";
@@ -26,7 +26,7 @@ const Wishlist = () => {
         
         if (Array.isArray(wishlist)) {
           setWishlistIds(wishlist);
-          // console.log(wishlistIds);
+       
         } else {
           setWishlistIds([]);
         }
@@ -40,27 +40,7 @@ const Wishlist = () => {
     fetchWishlist();
   }, []);
 
-//   const handleRemove = async (productId) => {
-//   try {
-//     await axios.delete(
-//       `http://localhost:4040/product/wishlist/remove/${productId}`,
-//       {
-//         withCredentials: true,
-//       }
-//     );
 
- 
-//     const updatedWishlist = wishlistIds.filter(
-//       (item) => item?.product?._id !== productId
-//     );
-//     setWishlistIds(updatedWishlist);
-
-//     toast.success("Item removed from wishlist");
-//   } catch (error) {
-//     console.error("Remove error:", error);
-//     toast.error("Failed to remove item from wishlist");
-//   }
-// };
 const handleRemove = async (productId) => {
   try {
     const response = await axios.delete(

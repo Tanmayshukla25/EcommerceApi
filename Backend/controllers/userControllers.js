@@ -5,7 +5,6 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const imageUrl = req.file ? req.file.path : "";
-  
 
     const userExists = await User.findOne({
       email,
@@ -25,12 +24,9 @@ export const registerUser = async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "user register successfully" });
   } catch (error) {
-    
     res.status(500).json({ message: "already Exists" });
   }
 };
-
-
 
 export const loginUser = async (req, res) => {
   try {
@@ -61,10 +57,10 @@ export const loginUser = async (req, res) => {
       .cookie("userToken", userToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "None",
         maxAge: 3600000,
       })
-      .send  ({
+      .send({
         message: "User logged in successfully",
         user: {
           id: user._id,
@@ -72,7 +68,6 @@ export const loginUser = async (req, res) => {
         },
       });
   } catch (error) {
-   
     res.status(500).json({ message: "Server Error" });
   }
 };
@@ -82,8 +77,8 @@ export const logoutUser = async (req, res) => {
     res
       .clearCookie(`userToken`, {
         httpOnly: true,
-        secure:true,
-        sameSite: "strict",
+        secure: true,
+        sameSite: "None",
       })
       .status(200)
       .json({ message: "User logged out successfully" });

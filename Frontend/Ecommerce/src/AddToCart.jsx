@@ -44,7 +44,7 @@ const Wishlist = () => {
 
 const handleRemove = async (productId) => {
   try {
-    const response = await axios.delete(
+    const response = await instance.delete(
       `/product/wishlist/remove/${productId}`,
       {
         withCredentials: true,

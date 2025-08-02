@@ -44,7 +44,7 @@ function AddProductForm() {
 
     try {
       const res = await instance.post(
-        "http://localhost:4040/product/add",
+        "/product/add",
         payload
       );
       console.log("Upload success:", res.data);

@@ -13,7 +13,7 @@ function ProtectedRoute({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await instance.get("http://localhost:4040/user/checkToken", {
+        const res = await instance.get("/user/checkToken", {
           withCredentials: true,
         });
         setUser(res.data);

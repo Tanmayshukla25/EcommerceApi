@@ -36,7 +36,7 @@ function Singleproject() {
       setLoading(true);
       try {
         const { data } = await instance.get(
-          `http://localhost:4040/product/${id}`
+          `/product/${id}`
         );
 
         setProduct(data);
@@ -59,7 +59,7 @@ function Singleproject() {
 
     try {
       await instance.post(
-        `http://localhost:4040/product/cart/${id}`,
+        `/product/cart/${id}`,
         { quantity: Quantity || 1 },
         { withCredentials: true }
       );
@@ -91,7 +91,7 @@ function Singleproject() {
     setWishlistLoading(true);
     try {
       await instance.post(
-        `http://localhost:4040/product/wishlist/${id}`,
+        `/wishlist/${id}`,
         {},
         { withCredentials: true }
       );

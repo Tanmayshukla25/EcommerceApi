@@ -8,7 +8,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await instance.get("http://localhost:4040/product/all");
+        const response = await instance.get("/product/all");
        
         
         setProducts(response.data);

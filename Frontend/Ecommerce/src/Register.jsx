@@ -46,7 +46,7 @@ function Register() {
 
     try {
       const res = await instance.post(
-         "http://localhost:4040/user/register",
+         "/user/register",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

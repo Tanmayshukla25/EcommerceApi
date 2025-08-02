@@ -17,7 +17,7 @@ const Wishlist = () => {
     async function fetchWishlist() {
       try {
         const response = await instance.get(
-          "http://localhost:4040/product/wishlist/Data",
+          "/product/wishlist/Data",
           {
             withCredentials: true,
           }
@@ -45,7 +45,7 @@ const Wishlist = () => {
 const handleRemove = async (productId) => {
   try {
     const response = await axios.delete(
-      `http://localhost:4040/product/wishlist/remove/${productId}`,
+      `/product/wishlist/remove/${productId}`,
       {
         withCredentials: true,
       }

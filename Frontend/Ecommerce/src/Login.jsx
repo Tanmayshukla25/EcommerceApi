@@ -23,7 +23,7 @@ function Login() {
     setIsLoading(true);
 
     try {
-       await instance.post("http://localhost:4040/user/login", { email, password }, {
+       await instance.post("/user/login", { email, password }, {
         withCredentials: true,
       });
 

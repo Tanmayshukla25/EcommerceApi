@@ -30,7 +30,7 @@ const [isSearchFocused, setIsSearchFocused] = useState(false);
 
 const fetchWishlist = async () => {
   try {
-    const res = await instance.get("http://localhost:4040/product/wishlist/Data", {
+    const res = await instance.get("/product/wishlist/Data", {
       withCredentials: true,
     });
     if (res.data && res.data.wishlist) {
@@ -44,7 +44,7 @@ const fetchWishlist = async () => {
 
 const fetchCart = async () => {
   try {
-    const res = await instance.get("http://localhost:4040/product/cart/data", {
+    const res = await instance.get("/product/cart/data", {
       withCredentials: true,
     });
     if (res.data && res.data.cart) {
@@ -62,7 +62,7 @@ const fetchCart = async () => {
 
   const fetchUser = async () => {
     try {
-      const res = await instance.get("http://localhost:4040/user/checkToken", {
+      const res = await instance.get("/user/checkToken", {
         withCredentials: true,
       });
       setUser(res.data);
@@ -77,7 +77,7 @@ const fetchCart = async () => {
 
   const handleLogout = async () => {
     try {
-      await instance.post("http://localhost:4040/user/logout", {}, { withCredentials: true });
+      await instance.post("/user/logout", {}, { withCredentials: true });
       
       setUser(null); 
       setCart(0);     

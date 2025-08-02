@@ -24,7 +24,7 @@ function First() {
    async function fetchUser() {
   try {
     const response = await instance.get(
-          "http://localhost:4040/user/checkToken", 
+          "/user/checkToken", 
       { withCredentials: true }
     );
 

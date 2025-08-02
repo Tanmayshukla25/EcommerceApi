@@ -17,7 +17,7 @@ function Cart() {
       try {
         setLoading(true);
         const response = await instance.get(
-          "http://localhost:4040/product/cart/data",
+          "/product/cart/data",
           {
             withCredentials: true,
           }
@@ -57,7 +57,7 @@ const handleRemove = async (itemId) => {
 
   try {
     await instance.delete(
-      `http://localhost:4040/product/cartData/remove/${itemId}`,
+      `/product/cartData/remove/${itemId}`,
       {
         withCredentials: true,
       }

@@ -91,7 +91,7 @@ function Singleproject() {
     setWishlistLoading(true);
     try {
       await instance.post(
-        `/wishlist/${id}`,
+        `/product/wishlist/${id}`,
         {},
         { withCredentials: true }
       );

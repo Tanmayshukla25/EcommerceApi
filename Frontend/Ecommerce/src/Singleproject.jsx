@@ -21,12 +21,12 @@ function Singleproject() {
 
   const {
     wishlistIds,
-    // setWishlistIds,
+  
 
     Quantity,
-    currentUser,
+    user,
     Cart,
-    // setCart,
+ 
   } = useContext(UserContext);
 
   const isWishlisted = wishlistIds.includes(product?.id);
@@ -51,7 +51,7 @@ function Singleproject() {
   }, [id]);
 
   async function handleAddCart() {
-    if (!currentUser) {
+    if (!user) {
       navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
       return;
     }
@@ -81,10 +81,9 @@ function Singleproject() {
   }
 
   async function HandleWishlist() {
-    console.log("Tanmay");
-    console.log(currentUser);
+   
 
-    if (!currentUser) {
+    if (!user) {
       navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
       return;
     }

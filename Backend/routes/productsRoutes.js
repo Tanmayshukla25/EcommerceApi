@@ -2,7 +2,7 @@ import express from "express"
 import {createForm, deleteProduct, getAllProducts, getCartData, getSingleProduct, getWishlistData, removeData, updateProduct, wishlist, wishListRemoveData} from "../controllers/productsControllers.js"
 import {CartData} from "../controllers/productsControllers.js"
 import { uploadCloud } from "../middleware/cloudinaryUpload.js";
-import checkToken from "../middleware/authCheckMiddleware.js";
+import {checkToken} from "../middleware/authCheckMiddleware.js";
 
 const router =express.Router();
 

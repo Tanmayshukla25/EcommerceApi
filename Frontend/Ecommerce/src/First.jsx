@@ -1,9 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-
-import { useEffect } from "react";
 import instance from "./axiosConfig.js";
 
 function First() {
@@ -14,38 +12,36 @@ function First() {
   const [wishlistIds, setWishlistIds] = useState([]);
   const [input, setInput] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  const [user, setUser] = useState(null);
-   const [loading, setLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null); 
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+  async function fetchUser() {
+    try {
+      const response = await instance.get("/user/checkToken", {
+        withCredentials: true,
+      });
 
+      const userData = response.data?.User;
 
-    useEffect(() => {
-   async function fetchUser() {
-  try {
-    const response = await instance.get(
-          "/user/checkToken", 
-      { withCredentials: true }
-    );
+      if (!userData || !userData._id) {
+        throw new Error("User not found in token response");
+      }
 
-  
-    const user = response.data?.User
-
-if (!user || !user._id) {
-  throw new Error("User not found in token response");
-}
-
-setCurrentUser(user);
-
-  } catch (e) {
-    console.error("User fetch error:", e);
-    setCurrentUser(null);
+      setUser({
+        _id: userData._id,
+        role: userData.role || "student", 
+      });
+    } catch (e) {
+      console.error("User fetch error:", e);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   }
-}
 
-
-    fetchUser();
-  }, []);
+  fetchUser();
+}, []);
 
 
   const AddtoWishlist = (productId) => {
@@ -55,37 +51,33 @@ setCurrentUser(user);
     });
   };
 
-  console.log(Cart);
-  
   return (
-  <UserContext.Provider
-  value={{
-    Cart,
-    setCart,
-    wishlistIds,
-    setUser,
-    loading,
-    setLoading,
-    user,
-    setWishlistIds,
-    addtocartid,
-    setAddtocartid,
-    setCartItems,
-    cartItems,
-    data,
-    setData,
-    Quantity,
-    setQuantity,
-    AddtoWishlist,
-    input,
-    setInput,
-    currentUser
-  }}
->
-  <Header />
-  <Outlet />
-</UserContext.Provider>
-
+    <UserContext.Provider
+      value={{
+        Cart,
+        setCart,
+        wishlistIds,
+        setWishlistIds,
+        addtocartid,
+        setAddtocartid,
+        setCartItems,
+        cartItems,
+        data,
+        setData,
+        Quantity,
+        setQuantity,
+        AddtoWishlist,
+        input,
+        setInput,
+        user,
+        setUser,
+        loading,
+        setLoading,
+      }}
+    >
+      <Header />
+      <Outlet />
+    </UserContext.Provider>
   );
 }
 

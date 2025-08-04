@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { UserContext } from "./UserContext";
 import instance from "./axiosConfig.js";
 
 function Login() {
@@ -11,10 +9,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   const navigate = useNavigate();
-  
   const [searchParams] = useSearchParams();
   const from = searchParams.get("referer") || "/";
 
@@ -23,9 +19,11 @@ function Login() {
     setIsLoading(true);
 
     try {
-       await instance.post("/user/login", { email, password }, {
-        withCredentials: true,
-      });
+      await instance.post(
+        "/user/login",
+        { email, password },
+        { withCredentials: true }
+      );
 
       toast.success("Login Successfully", {
         position: "bottom-right",
@@ -34,8 +32,8 @@ function Login() {
 
       setEmail("");
       setPassword("");
-     
 
+      
       setTimeout(() => navigate(from, { replace: true }), 3000);
     } catch (err) {
       toast.error(err.response?.data?.message || "Login Failed", {
@@ -57,7 +55,9 @@ function Login() {
         </div>
 
         <div className="flex bg-gray-100 rounded-lg p-1 mb-8">
-          <div className="flex-1 text-center py-2 px-4 rounded-md bg-white text-blue-600 font-semibold shadow-sm">Sign In</div>
+          <div className="flex-1 text-center py-2 px-4 rounded-md bg-white text-blue-600 font-semibold shadow-sm">
+            Sign In
+          </div>
           <Link
             to="/register"
             className="flex-1 text-center py-2 px-4 rounded-md text-gray-600 hover:text-gray-800 transition-colors duration-200"
@@ -68,7 +68,6 @@ function Login() {
 
         <div className="bg-white rounded-xl shadow-lg p-8">
           <form onSubmit={handleLogin} className="space-y-6">
-          
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -84,7 +83,6 @@ function Login() {
               />
             </div>
 
-        
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -109,7 +107,6 @@ function Login() {
               </div>
             </div>
 
-           
             <button
               type="submit"
               disabled={isLoading}
@@ -130,7 +127,6 @@ function Login() {
             </button>
           </form>
 
-          
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?{" "}
@@ -144,7 +140,6 @@ function Login() {
           </div>
         </div>
 
-     
         <div className="text-center text-sm text-gray-500">
           <p>Protected by reCAPTCHA and subject to our Privacy Policy and Terms of Service.</p>
         </div>

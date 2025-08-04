@@ -1,18 +1,19 @@
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+
+
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    console.log(req.body)
+    const { name, email, password, role } = req.body; 
     const imageUrl = req.file ? req.file.path : "";
-  
 
-    const userExists = await User.findOne({
-      email,
-    });
+    const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
@@ -20,13 +21,14 @@ export const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       image: imageUrl,
+      role: role === "admin" ? "admin" : "User", 
     });
 
     await newUser.save();
-    res.status(201).json({ message: "user register successfully" });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    
-    res.status(500).json({ message: "already Exists" });
+    console.error(error);
+    res.status(500).json({ message: "Registration failed" });
   }
 };
 
@@ -50,6 +52,7 @@ export const loginUser = async (req, res) => {
       {
         id: user._id,
         email: user.email,
+        role: user.role, 
       },
       process.env.JWT_SECRET,
       {
@@ -61,7 +64,7 @@ export const loginUser = async (req, res) => {
       .cookie("userToken", userToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "None",
         maxAge: 3600000,
       })
       .send  ({
@@ -69,6 +72,7 @@ export const loginUser = async (req, res) => {
         user: {
           id: user._id,
           email: user.email,
+          role: user.role,
         },
       });
   } catch (error) {
@@ -83,7 +87,7 @@ export const logoutUser = async (req, res) => {
       .clearCookie(`userToken`, {
         httpOnly: true,
         secure:true,
-        sameSite: "strict",
+        sameSite: "None",
       })
       .status(200)
       .json({ message: "User logged out successfully" });

@@ -12,6 +12,7 @@ function Register() {
   const [image, setImage] = useState(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+   const [role, setRole] = useState("User");
 
   const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ function Register() {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
+     formData.append("role", role);
     if (image) {
       formData.append("image", image);
     }
@@ -65,6 +67,7 @@ function Register() {
       setConfirmPass("");
       setImage(null);
       setTermsAccepted(false);
+        setRole("User");
 
       if (res.status === 201) {
         navigate("/login");
@@ -161,7 +164,17 @@ function Register() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
-
+ <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Select Role</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              >
+                <option value="User">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
             <div className="flex items-start space-x-3">
               <input
                 type="checkbox"

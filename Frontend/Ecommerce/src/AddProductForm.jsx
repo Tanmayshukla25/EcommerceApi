@@ -61,7 +61,7 @@ function AddProductForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-500 py-8 px-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
         <div
@@ -72,10 +72,10 @@ function AddProductForm() {
 
       <div className="relative z-10 max-w-lg mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold text-white bg-clip-text  mb-2">
             Add New Product
           </h1>
-          <p className="text-gray-600">
+          <p className="text-white">
             Fill in the details to add your product
           </p>
         </div>

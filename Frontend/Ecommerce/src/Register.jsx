@@ -80,14 +80,14 @@ function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br mt-15 from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-500 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <ToastContainer />
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Create Your Account
           </h2>
-          <p className="text-gray-600">Join us today and start shopping!</p>
+          <p className="text-white">Join us today and start shopping!</p>
         </div>
 
         <div className="flex bg-gray-100 rounded-lg p-1 mb-8">

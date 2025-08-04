@@ -1,85 +1,61 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
-import {
-  FaBars,
-  FaTimes,
-  FaHeart,
-  FaSearch,
-  FaStar,
-  FaGem,
-  FaShoppingCart,
-} from "react-icons/fa";
+import { FaBars, FaTimes, FaHeart, FaSearch, FaStar, FaGem, FaShoppingCart } from "react-icons/fa";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import { UserContext } from "./UserContext";
 import instance from "./axiosConfig.js";
 
 function Header() {
-  const { input, setInput, Cart, wishlistIds, setWishlistIds, setCart } =
+  const { input, setInput, Cart, wishlistIds, setWishlistIds, setCart, user } =
     useContext(UserContext);
 
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    async function fetchUser() {
+ useEffect(() => {
+    const fetchWishlist = async () => {
       try {
-        const response = await instance.get("/user/checkToken", {
+        const wishlistRes = await instance.get("/product/wishlist/Data", {
           withCredentials: true,
         });
-
-        const userData = response.data?.User;
-
-        if (!userData || !userData._id) {
-          throw new Error("User not found in token response");
-        }
-
-        setUser({
-          _id: userData._id,
-          role: userData.role || "student",
-        });
-      } catch (e) {
-        console.error("User fetch error:", e);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchUser();
-  }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [wishlistRes, cartRes] = await Promise.all([
-          instance.get("/product/wishlist/Data", { withCredentials: true }),
-          instance.get("/product/cart/data", { withCredentials: true }),
-        ]);
-
         if (wishlistRes.data?.wishlist) {
           const cleaned = wishlistRes.data.wishlist.filter(
             (item) => item?.product
           );
           setWishlistIds(cleaned.map((item) => item.product._id));
+         
         }
+      } catch (error) {
+        console.error("Error fetching wishlist:", error);
+      }finally {
+        setLoading(false); 
+      }
+    };
 
+    const fetchCart = async () => {
+      try {
+        const cartRes = await instance.get("/product/cart/data", {
+          withCredentials: true,
+        });
         if (cartRes.data?.cart) {
           const cleaned = cartRes.data.cart.filter((item) => item?.product);
           setCart(cleaned.length);
         }
       } catch (error) {
-        console.error("Error fetching cart or wishlist:", error);
-      } finally {
+        console.error("Error fetching cart:", error);
+      }finally {
         setLoading(false); 
       }
     };
 
-    fetchData();
+    fetchWishlist();
+    fetchCart();
   }, [location]);
 
   const handleLogout = async () => {
@@ -165,7 +141,8 @@ function Header() {
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                 ))}
-                {!loading && user?.role === "admin" && (
+
+                {user?.role === "admin" && (
                   <Link
                     to="/AddProductForm"
                     className="text-white hover:text-green-300 transition-all duration-300 bg-gray-500 bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 hover:scale-110"

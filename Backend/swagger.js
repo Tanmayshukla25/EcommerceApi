@@ -9,7 +9,7 @@ const options = {
       description: 'API documentation for the E-Commerce platform',
     },
     servers: [
-      { url: 'http://localhost:4040' }
+      {url:process.env.FRONTEND_URL}
     ],
     components: {
       securitySchemes: {

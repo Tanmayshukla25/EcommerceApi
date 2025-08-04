@@ -8,16 +8,44 @@ import { UserContext } from "./UserContext";
 import instance from "./axiosConfig.js";
 
 function Header() {
-  const { input, setInput, Cart, wishlistIds, setWishlistIds, setCart, user } =
+  const { input, setInput, Cart, wishlistIds, setWishlistIds, setCart } =
     useContext(UserContext);
 
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+    const [user, setUser] = useState(null); 
 
   const navigate = useNavigate();
   const location = useLocation();
 
+    useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await instance.get("/user/checkToken", {
+          withCredentials: true,
+        });
+
+        const userData = response.data?.User;
+
+        if (!userData || !userData._id) {
+          throw new Error("User not found in token response");
+        }
+
+        setUser({
+          _id: userData._id,
+          role: userData.role || "student",
+        });
+      } catch (e) {
+        console.error("User fetch error:", e);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUser();
+  }, []);
  useEffect(() => {
     const fetchWishlist = async () => {
       try {

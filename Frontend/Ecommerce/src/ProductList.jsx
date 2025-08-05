@@ -4,22 +4,47 @@ import instance from "./axiosConfig.js";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [moreProduct, setMoreProduct] = useState(true);
+
+  const fetchData = async () => {
+    if (loading || !moreProduct) return;
+    setLoading(true);
+
+    try {
+      const response = await instance.get(`/product/all?page=${page}&limit=12`);
+      const newProducts = response.data;
+
+      if (newProducts.length === 0) {
+        setMoreProduct(false);
+      } else {
+        setProducts((prev) => [...prev, ...newProducts]);
+        setPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await instance.get("/product/all");
-       
-        
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 300 >=
+        document.documentElement.offsetHeight
+      ) {
+        fetchData();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [page, loading]);
   return (
     <div className="min-h-screen bg-gray-500 py-12">
       <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,88 +1,3 @@
-// import { useState, useEffect } from "react";
-// import { UserContext } from "./UserContext";
-// import { Outlet } from "react-router-dom";
-// import Header from "./Header";
-// import instance from "./axiosConfig.js";
-
-// function First() {
-//   const [Cart, setCart] = useState(0);
-//   const [addtocartid, setAddtocartid] = useState([]);
-//   const [data, setData] = useState([]);
-//   const [Quantity, setQuantity] = useState(1);
-//   const [wishlistIds, setWishlistIds] = useState([]);
-//   const [input, setInput] = useState("");
-//   const [cartItems, setCartItems] = useState([]);
-//   const [user, setUser] = useState(null); 
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//   async function fetchUser() {
-//     try {
-//       const response = await instance.get("/user/checkToken", {
-//         withCredentials: true,
-//       });
-
-//       const userData = response.data?.User;
-
-//       if (!userData || !userData._id) {
-//         throw new Error("User not found in token response");
-//       }
-
-//       setUser({
-//         _id: userData._id,
-//         role: userData.role || "student", 
-//       });
-//     } catch (e) {
-//       console.error("User fetch error:", e);
-//       setUser(null);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
-
-//   fetchUser();
-// }, []);
-
-
-//   const AddtoWishlist = (productId) => {
-//     setWishlistIds((prev) => {
-//       if (prev.includes(productId)) return prev;
-//       return [...prev, productId];
-//     });
-//   };
-
-//   return (
-//     <UserContext.Provider
-//       value={{
-//         Cart,
-//         setCart,
-//         wishlistIds,
-//         setWishlistIds,
-//         addtocartid,
-//         setAddtocartid,
-//         setCartItems,
-//         cartItems,
-//         data,
-//         setData,
-//         Quantity,
-//         setQuantity,
-//         AddtoWishlist,
-//         input,
-//         setInput,
-//         user,
-//         setUser,
-//         loading,
-//         setLoading,
-//       }}
-//     >
-//       <Header />
-//       <Outlet />
-//     </UserContext.Provider>
-//   );
-// }
-
-// export default First;
-// First.jsx
 import { useState, useEffect } from "react";
 import { UserContext } from "./UserContext";
 import { Outlet } from "react-router-dom";
@@ -97,36 +12,58 @@ function First() {
   const [wishlistIds, setWishlistIds] = useState([]);
   const [input, setInput] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchUser() {
+  
+
+    fetchData();
+  }, []);
+    async function fetchData() {
       try {
-        const response = await instance.get("/user/checkToken", {
+       
+        const userResponse = await instance.get("/user/checkToken", {
           withCredentials: true,
         });
+        const userData = userResponse.data?.User;
 
-        const userData = response.data?.User;
-
-        if (!userData || !userData._id) {
-          throw new Error("User not found in token response");
+        if (userData?._id) {
+          setUser({
+            _id: userData._id,
+            role: userData.role || "student",
+          });
+        } else {
+          setUser(null);
         }
 
-        setUser({
-          _id: userData._id,
-          role: userData.role || "student",
+     
+        const wishlistRes = await instance.get("/product/wishlist/Data", {
+          withCredentials: true,
         });
+        if (wishlistRes.data?.wishlist) {
+          const cleanedWishlist = wishlistRes.data.wishlist.filter(
+            (item) => item?.product
+          );
+          setWishlistIds(cleanedWishlist.map((item) => item.product._id));
+        }
+
+        const cartRes = await instance.get("/product/cart/data", {
+          withCredentials: true,
+        });
+        if (cartRes.data?.cart) {
+          const cleanedCart = cartRes.data.cart.filter((item) => item?.product);
+          setCart(cleanedCart.length);
+        }
       } catch (e) {
-        console.error("User fetch error:", e);
+        console.error("Data fetch error:", e);
         setUser(null);
+        setWishlistIds([]);
+        setCart(0);
       } finally {
         setLoading(false);
       }
     }
-
-    fetchUser();
-  }, []);
 
   const AddtoWishlist = (productId) => {
     setWishlistIds((prev) => {
@@ -157,6 +94,7 @@ function First() {
         setUser,
         loading,
         setLoading,
+        fetchData
       }}
     >
       <Header />

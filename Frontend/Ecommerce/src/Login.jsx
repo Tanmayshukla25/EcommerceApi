@@ -3,13 +3,15 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import instance from "./axiosConfig.js";
+import { useContext } from "react";
+import { UserContext } from "./UserContext.jsx";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const { fetchData } = useContext(UserContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("referer") || "/";
@@ -32,9 +34,11 @@ function Login() {
 
       setEmail("");
       setPassword("");
+      setTimeout(() => {
+        fetchData();
+      }, 2000);
 
-      
-      setTimeout(() => navigate(from, { replace: true }), 3000);
+      setTimeout(() => navigate(from, { replace: true }), 2000);
     } catch (err) {
       toast.error(err.response?.data?.message || "Login Failed", {
         position: "bottom-right",
@@ -50,7 +54,9 @@ function Login() {
       <ToastContainer />
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            Welcome Back
+          </h2>
           <p className="text-white">Login to continue shopping</p>
         </div>
 
@@ -69,7 +75,10 @@ function Login() {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email Address
               </label>
               <input
@@ -84,7 +93,10 @@ function Login() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -102,7 +114,11 @@ function Login() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors duration-200"
                 >
-                  {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                  {showPassword ? (
+                    <FaEyeSlash size={18} />
+                  ) : (
+                    <FaEye size={18} />
+                  )}
                 </button>
               </div>
             </div>
@@ -141,7 +157,10 @@ function Login() {
         </div>
 
         <div className="text-center text-sm text-gray-500">
-          <p>Protected by reCAPTCHA and subject to our Privacy Policy and Terms of Service.</p>
+          <p>
+            Protected by reCAPTCHA and subject to our Privacy Policy and Terms
+            of Service.
+          </p>
         </div>
       </div>
     </div>

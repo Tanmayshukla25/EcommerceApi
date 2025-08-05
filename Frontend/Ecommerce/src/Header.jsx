@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { FaBars, FaTimes, FaHeart, FaSearch, FaStar, FaGem, FaShoppingCart } from "react-icons/fa";
 import { BsPlusSquareFill } from "react-icons/bs";
@@ -8,88 +8,20 @@ import { UserContext } from "./UserContext";
 import instance from "./axiosConfig.js";
 
 function Header() {
-  const { input, setInput, Cart, wishlistIds, setWishlistIds, setCart } =
+  const { input, setInput, Cart, wishlistIds, setWishlistIds, setCart, user, loading, setUser } =
     useContext(UserContext);
 
-  const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-    const [user, setUser] = useState(null); 
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-    useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await instance.get("/user/checkToken", {
-          withCredentials: true,
-        });
-
-        const userData = response.data?.User;
-
-        if (!userData || !userData._id) {
-          throw new Error("User not found in token response");
-        }
-
-        setUser({
-          _id: userData._id,
-          role: userData.role || "student",
-        });
-      } catch (e) {
-        console.error("User fetch error:", e);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchUser();
-  }, []);
- useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        const wishlistRes = await instance.get("/product/wishlist/Data", {
-          withCredentials: true,
-        });
-        if (wishlistRes.data?.wishlist) {
-          const cleaned = wishlistRes.data.wishlist.filter(
-            (item) => item?.product
-          );
-          setWishlistIds(cleaned.map((item) => item.product._id));
-         
-        }
-      } catch (error) {
-        console.error("Error fetching wishlist:", error);
-      }finally {
-        setLoading(false); 
-      }
-    };
-
-    const fetchCart = async () => {
-      try {
-        const cartRes = await instance.get("/product/cart/data", {
-          withCredentials: true,
-        });
-        if (cartRes.data?.cart) {
-          const cleaned = cartRes.data.cart.filter((item) => item?.product);
-          setCart(cleaned.length);
-        }
-      } catch (error) {
-        console.error("Error fetching cart:", error);
-      }finally {
-        setLoading(false); 
-      }
-    };
-
-    fetchWishlist();
-    fetchCart();
-  }, [location]);
 
   const handleLogout = async () => {
     try {
       await instance.post("/user/logout", {}, { withCredentials: true });
       setCart(0);
+      setWishlistIds([]);
+      setUser(null); 
       toast.success("User Logout Successfully", {
         position: "bottom-right",
         autoClose: 3000,
@@ -226,7 +158,6 @@ function Header() {
             </nav>
           </div>
 
-          {/* Mobile Dropdown */}
           <div
             className={`md:hidden transition-all duration-500 ease-in-out ${
               menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
@@ -257,6 +188,17 @@ function Header() {
                     {["Home", "About", "Contact", "Blog"][i]}
                   </Link>
                 ))}
+
+                {user?.role === "admin" && (
+                  <Link
+                    to="/AddProductForm"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center space-x-2 hover:text-green-300 border-b border-white py-2 border-opacity-20"
+                  >
+                    <BsPlusSquareFill />
+                    <span>Add Product</span>
+                  </Link>
+                )}
 
                 <Link
                   to="/cart"
@@ -310,6 +252,7 @@ function Header() {
       </div>
 
       <div className="h-20"></div>
+      <ToastContainer />
     </div>
   );
 }

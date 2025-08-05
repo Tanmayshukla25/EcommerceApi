@@ -20,6 +20,7 @@ function First() {
 
     fetchData();
   }, []);
+  
     async function fetchData() {
       try {
        
@@ -31,7 +32,7 @@ function First() {
         if (userData?._id) {
           setUser({
             _id: userData._id,
-            role: userData.role || "student",
+            role: userData.role || "user",
           });
         } else {
           setUser(null);

@@ -12,7 +12,7 @@ function Register() {
   const [image, setImage] = useState(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-   const [role, setRole] = useState("User");
+  const [role, setRole] = useState("User");
 
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function Register() {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
-     formData.append("role", role);
+    formData.append("role", role);
     if (image) {
       formData.append("image", image);
     }
@@ -47,14 +47,10 @@ function Register() {
     setIsLoading(true);
 
     try {
-      const res = await instance.post(
-         "/user/register",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-          withCredentials: true,
-        }
-      );
+      const res = await instance.post("/user/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      });
 
       toast.success("Registered Successfully!", {
         position: "bottom-right",
@@ -67,7 +63,7 @@ function Register() {
       setConfirmPass("");
       setImage(null);
       setTermsAccepted(false);
-        setRole("User");
+      setRole("User");
 
       if (res.status === 201) {
         navigate("/login");
@@ -106,9 +102,15 @@ function Register() {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6"
+            encType="multipart/form-data"
+          >
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name
+              </label>
               <input
                 type="text"
                 required
@@ -120,7 +122,9 @@ function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
               <input
                 type="email"
                 required
@@ -132,7 +136,9 @@ function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
               <input
                 type="password"
                 required
@@ -144,7 +150,9 @@ function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Confirm Password
+              </label>
               <input
                 type="password"
                 required
@@ -156,7 +164,9 @@ function Register() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Profile Image</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Profile Image
+              </label>
               <input
                 type="file"
                 accept="image/*"
@@ -164,17 +174,7 @@ function Register() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               />
             </div>
- <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Select Role</label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option value="User">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
+
             <div className="flex items-start space-x-3">
               <input
                 type="checkbox"
@@ -186,9 +186,14 @@ function Register() {
               />
               <label htmlFor="terms" className="text-sm text-gray-700">
                 I agree to the{" "}
-                <a href="#" className="text-blue-600 underline font-medium">Terms of Service</a>{" "}
+                <a href="#" className="text-blue-600 underline font-medium">
+                  Terms of Service
+                </a>{" "}
                 and{" "}
-                <a href="#" className="text-blue-600 underline font-medium">Privacy Policy</a>.
+                <a href="#" className="text-blue-600 underline font-medium">
+                  Privacy Policy
+                </a>
+                .
               </label>
             </div>
 
@@ -215,7 +220,10 @@ function Register() {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-blue-600 underline font-semibold">
+              <Link
+                to="/login"
+                className="text-blue-600 underline font-semibold"
+              >
                 Log In
               </Link>
             </p>

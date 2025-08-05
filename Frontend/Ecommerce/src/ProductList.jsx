@@ -49,7 +49,6 @@ const ProductList = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [page, loading]);
 
-  
   const filteredProducts = products.filter((product) =>
     product?.name?.toLowerCase().includes(input.toLowerCase())
   );
@@ -65,7 +64,9 @@ const ProductList = () => {
         </div>
 
         {filteredProducts.length === 0 && (
-          <p className="text-center text-gray-500 text-lg">No products found.</p>
+          <p className="text-center text-gray-500 text-lg">
+            No products found.
+          </p>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -146,7 +147,9 @@ const ProductList = () => {
         </div>
 
         {loading && (
-          <div className="text-center mt-10 text-gray-600">Loading more products...</div>
+          <div className="text-center mt-10 text-gray-600">
+            Loading more products...
+          </div>
         )}
       </div>
     </div>
@@ -154,4 +157,3 @@ const ProductList = () => {
 };
 
 export default ProductList;
-                                                          

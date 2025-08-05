@@ -6,9 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, Navigate } from "react-router-dom";
 import instance from "./axiosConfig.js";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
 function Cart() {
-  const { Cart, setCart, cartItems, setCartItems ,currentUser} = useContext(UserContext);
+  const { Cart, setCart, cartItems, setCartItems} = useContext(UserContext);
   const [totalAmount, setTotalAmount] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -135,7 +136,7 @@ const handleRemove = async (itemId) => {
                 </div>
                 <div className="flex items-center gap-4 mt-4 sm:mt-0">
                   <span className="text-xl font-bold text-green-600 flex items-center">
-                    <PiCurrencyDollarBold />
+                 <FaIndianRupeeSign />
                     {item.product.discountedPrice || 0}
                   </span>
                   <button

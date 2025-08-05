@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 
 import { UserContext } from "./UserContext";
 import { RxCross2 } from "react-icons/rx";
-import { PiCurrencyDollarBold } from "react-icons/pi";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
@@ -98,7 +98,7 @@ const handleRemove = async (productId) => {
                   </div>
                   <div className="flex items-center gap-4 mt-4 sm:mt-0">
                     <span className="text-xl font-bold text-green-600 flex items-center">
-                      <PiCurrencyDollarBold />
+                       <FaIndianRupeeSign />
                       {item.product.discountedPrice || 0}
                     </span>
                     <button className="text-red-500 hover:text-red-700"onClick={() => handleRemove(item.product._id)}>

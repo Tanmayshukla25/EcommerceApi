@@ -50,10 +50,10 @@ function Cart() {
 
 
 const handleRemove = async (itemId) => {
-  if (!currentUser) {
-    Navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
-    return;
-  }
+  // if (!currentUser) {
+  //   Navigate(`/login?referer=${encodeURIComponent(location.pathname)}`);
+  //   return;
+  // }
 
   try {
     await instance.delete(

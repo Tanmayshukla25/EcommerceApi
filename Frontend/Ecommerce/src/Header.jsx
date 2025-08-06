@@ -214,7 +214,7 @@ function Header() {
               </button>
             </div>
 
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8 h-">
               <div className="relative group">
                 <div
                   className={`flex items-center bg-opacity-20 backdrop-blur-sm rounded-full border border-white px-4 py-2 transition-all duration-300 ${
@@ -234,7 +234,7 @@ function Header() {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-6">
+              <div className="flex  items-center space-x-6 ">
                 {["/", "/about", "/contact", "/blog"].map((path, i) => (
                   <Link
                     key={path}
@@ -299,7 +299,7 @@ function Header() {
               menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             } overflow-hidden`}
           >
-            <div className="mt-4 space-y-4 bg-opacity-10 backdrop-blur-lg rounded-2xl p-6">
+            <div className="mt-2 space-y-4 bg-opacity-10 backdrop-blur-lg rounded-2xl p-1">
               <div className="relative">
                 <div className="flex items-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-4 py-3">
                   <FaSearch className="text-white text-sm mr-3" />
@@ -313,7 +313,7 @@ function Header() {
                 </div>
               </div>
 
-              <div className="flex flex-col space-y-4 text-white">
+              <div className="flex flex-col space-y-1 text-white pb-4">
                 {["/", "/about", "/contact", "/blog"].map((path, i) => (
                   <Link
                     key={path}

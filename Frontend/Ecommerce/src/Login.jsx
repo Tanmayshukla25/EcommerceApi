@@ -5,12 +5,15 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import instance from "./axiosConfig.js";
 import { useContext } from "react";
 import { UserContext } from "./UserContext.jsx";
+import { SiTicktick } from "react-icons/si";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [failed, setFailed] = useState(false);
   const { fetchData } = useContext(UserContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -27,18 +30,15 @@ function Login() {
         { withCredentials: true }
       );
 
-      toast.success("Login Successfully", {
-        position: "bottom-right",
-        autoClose: 3000,
-      });
-
       setEmail("");
       setPassword("");
-      setTimeout(() => {
-        fetchData();
-      }, 2000);
 
-      setTimeout(() => navigate(from, { replace: true }), 2000);
+      setIsLogin(true);
+      setFailed(false);
+      fetchData();
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1000);
     } catch (err) {
       toast.error(err.response?.data?.message || "Login Failed", {
         position: "bottom-right",
@@ -73,6 +73,29 @@ function Login() {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
+          {isLogin && (
+            <div className="flex items-center  justify-center">
+              <div className=" pb-2 bg-green-600  text-center w-[220px] py-1 rounded-2xl px-2 text-white text-xl">
+               <div className="flex items-center  gap-2">
+                 <span><SiTicktick /></span><h1>Login Successfully</h1>
+               </div>
+              </div>
+            </div>
+          )}
+          {failed && (
+            <div className="flex items-center justify-center pb-2 text-red-600 text-xl">
+              <h1>Login Failed</h1>
+            </div>
+          )}
+
+          {isLoading && (
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <span className="ml-3 text-blue-700 font-medium">
+                Logging in...
+              </span>
+            </div>
+          )}
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label

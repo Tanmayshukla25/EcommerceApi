@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import instance from "./axiosConfig.js";
 import { UserContext } from "./UserContext";
 
@@ -16,7 +16,8 @@ function AddProductForm() {
     discountedPrice: 0,
     description: "",
   });
-
+const navigate = useNavigate();
+ 
   const [imageFile, setImageFile] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
@@ -51,6 +52,7 @@ function AddProductForm() {
         position: "bottom-right",
         autoClose: 3000,
       });
+      navigate("/")
     } catch (err) {
       console.error("Upload error:", err);
       alert("Upload failed. Check console.");

@@ -14,6 +14,7 @@ function First() {
   const [cartItems, setCartItems] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [CartDetials,setCartDetials]=useState([])
 
   useEffect(() => {
   
@@ -52,9 +53,11 @@ function First() {
         const cartRes = await instance.get("/product/cart/data", {
           withCredentials: true,
         });
+        setCartDetials(cartRes)
         if (cartRes.data?.cart) {
           const cleanedCart = cartRes.data.cart.filter((item) => item?.product);
           setCart(cleanedCart.length);
+
         }
       } catch (e) {
         console.error("Data fetch error:", e);
@@ -95,7 +98,8 @@ function First() {
         setUser,
         loading,
         setLoading,
-        fetchData
+        fetchData,
+        CartDetials
       }}
     >
       <Header />

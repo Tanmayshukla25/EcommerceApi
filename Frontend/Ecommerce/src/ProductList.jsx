@@ -8,51 +8,70 @@ const ProductList = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [moreProduct, setMoreProduct] = useState(true);
-  const { input } = useContext(UserContext);
+  const { input, user } = useContext(UserContext);
 
-  const fetchData = async () => {
+ 
+  const fetchAllForAdmin = async () => {
+    try {
+      setLoading(true);
+      const response = await instance.get("/product/all");
+      setProducts(response.data || []);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching all products for admin:", error);
+      setLoading(false);
+    }
+  };
+
+ 
+  const fetchPaginated = async () => {
     if (loading || !moreProduct) return;
     setLoading(true);
-
     try {
       const response = await instance.get(`/product/all?page=${page}&limit=12`);
       const newProducts = response.data;
-
-      if (newProducts.length === 0) {
+      if (!newProducts.length) {
         setMoreProduct(false);
       } else {
         setProducts((prev) => [...prev, ...newProducts]);
         setPage((prev) => prev + 1);
       }
+      setLoading(false);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching paginated products:", error);
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   useEffect(() => {
+    if (user?.role === "admin") {
+      fetchAllForAdmin();
+    } else {
+      fetchPaginated();
+    }
+  }, [user]);
+
+
+  useEffect(() => {
+    if (user?.role === "admin") return;
+
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop + 300 >=
         document.documentElement.offsetHeight
       ) {
-        fetchData();
+        fetchPaginated();
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [page, loading]);
+  }, [page, loading, user]);
 
   const filteredProducts = products.filter((product) =>
     product?.name?.toLowerCase().includes(input.toLowerCase())
   );
-
   return (
     <div className="min-h-screen bg-gray-500 py-12">
       <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">

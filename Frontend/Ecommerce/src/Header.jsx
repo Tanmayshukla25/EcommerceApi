@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { FaBars, FaTimes, FaHeart, FaSearch, FaStar, FaGem, FaShoppingCart } from "react-icons/fa";
 import { BsPlusSquareFill } from "react-icons/bs";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { UserContext } from "./UserContext";
 import instance from "./axiosConfig.js";
 
@@ -22,16 +22,160 @@ function Header() {
       setCart(0);
       setWishlistIds([]);
       setUser(null); 
-      toast.success("User Logout Successfully", {
-        position: "bottom-right",
-        autoClose: 3000,
-      });
+   
       navigate("/login");
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
 
+
+    if (user?.role === "admin") {
+    return (
+      <div className="relative">
+      <div className="w-full bg-gray-700 shadow-2xl fixed top-0 left-0 z-50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          
+          <Link
+            to="/"
+            className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 bg-clip-text text-transparent"
+          >
+            <div className="flex items-center space-x-2">
+              <FaGem className="text-yellow-300" />
+              <span>Luxe Jewels (Admin)</span>
+            </div>
+          </Link>
+
+          
+          <div className="md:hidden">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-white focus:outline-none"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {menuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+
+         
+          <div className="hidden md:flex items-center space-x-6">
+            <Link
+              to="/"
+              className="text-white hover:text-yellow-300 transition duration-300"
+            >
+              All Products
+            </Link>
+
+            <Link
+              to="/AddProductForm"
+              className="text-white hover:text-green-300 transition duration-300"
+            >
+              <BsPlusSquareFill size={22} />
+            </Link>
+
+            <div className="relative group">
+              <div
+                className={`flex items-center bg-opacity-20 backdrop-blur-sm rounded-full border border-white px-3 py-1 transition-all duration-300 ${
+                  isSearchFocused ? "bg-opacity-30 scale-105 shadow-lg" : ""
+                }`}
+              >
+                <FaSearch className="text-white text-sm mr-2" />
+                <input
+                  type="text"
+                  className="bg-transparent text-white placeholder-gray-300 focus:outline-none w-40 md:w-64"
+                  placeholder="Search luxury jewelry..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setIsSearchFocused(false)}
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="text-white hover:text-red-300 transition-all duration-300 bg-red-600 bg-opacity-30 p-2 rounded hover:bg-opacity-50 hover:scale-110"
+              title="Logout"
+            >
+              <LuLogOut size={18} />
+            </button>
+          </div>
+        </div>
+
+      
+        {menuOpen && (
+          <div className="md:hidden px-6 pb-4 space-y-4">
+            <Link
+              to="/"
+              className="block text-white hover:text-yellow-300 transition duration-300"
+            >
+              All Products
+            </Link>
+
+            <Link
+              to="/AddProductForm"
+              className="block text-white hover:text-green-300 transition duration-300"
+            >
+              Add Product
+            </Link>
+
+            <div className="flex items-center bg-opacity-20 backdrop-blur-sm rounded-full border border-white px-3 py-1">
+              <FaSearch className="text-white text-sm mr-2" />
+              <input
+                type="text"
+                className="bg-transparent text-white placeholder-gray-300 focus:outline-none w-full"
+                placeholder="Search luxury jewelry..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+              />
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="w-full text-white hover:text-red-300 transition-all duration-300 bg-red-600 bg-opacity-30 p-2 rounded hover:bg-opacity-50 hover:scale-105"
+              title="Logout"
+            >
+              <div className="flex justify-center items-center gap-2">
+                <LuLogOut size={18} />
+                <span>Logout</span>
+              </div>
+            </button>
+          </div>
+        )}
+
+       
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-300 to-transparent opacity-60"></div>
+      </div>
+
+     
+      <div className="h-10"></div>
+
+      <ToastContainer />
+    </div>
+    );
+  }
   return (
     <div className="relative">
       <div className="w-full bg-gray-700 shadow-2xl fixed top-0 left-0 z-50 backdrop-blur-sm">
@@ -102,15 +246,7 @@ function Header() {
                   </Link>
                 ))}
 
-                {user?.role === "admin" && (
-                  <Link
-                    to="/AddProductForm"
-                    className="text-white hover:text-green-300 transition-all duration-300 bg-gray-500 bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 hover:scale-110"
-                    title="Add Product"
-                  >
-                    <BsPlusSquareFill size={18} />
-                  </Link>
-                )}
+            
 
                 <Link to="/cart" className="relative text-white group">
                   <div className="bg-opacity-20 backdrop-blur-sm p-2 rounded-full group-hover:bg-opacity-30 group-hover:scale-110 transition-all duration-300">

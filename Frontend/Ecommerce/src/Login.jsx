@@ -18,7 +18,7 @@ function Login() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("referer") || "/";
-
+  const [error, setError] = useState("");
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -46,6 +46,17 @@ function Login() {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+   const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+  
+    if (value && !/^[\w.+/-]+@gmail\.com$/.test(value)) {
+      setError("Please enter a valid Gmail address (e.g., example@gmail.com)");
+    } else {
+      setError("");
     }
   };
 
@@ -109,10 +120,11 @@ function Login() {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400"
               />
+                {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             </div>
 
             <div>

@@ -21,7 +21,7 @@ function Register() {
     const value = e.target.value;
     setEmail(value);
 
-    // Validate email ends with @gmail.com
+  
     if (value && !/^[\w.+/-]+@gmail\.com$/.test(value)) {
       setError("Please enter a valid Gmail address (e.g., example@gmail.com)");
     } else {

@@ -305,7 +305,7 @@ function Header() {
                   <FaSearch className="text-white text-sm mr-3" />
                   <input
                     type="text"
-                    className="bg-transparent text-white placeholder-gray-200 focus:outline-none w-full"
+                    className="bg-transparent placeholder-gray-200 focus:outline-none w-full"
                     placeholder="Search luxury jewelry..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}

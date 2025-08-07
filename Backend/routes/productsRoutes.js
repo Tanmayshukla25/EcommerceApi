@@ -6,6 +6,7 @@ import {
   getCartData,
   getSingleProduct,
   getWishlistData,
+
   removeData,
   updateProduct,
   wishlist,
@@ -224,5 +225,7 @@ router.delete("/cartData/remove/:id", checkToken, removeData);
  *         description: Product removed from wishlist
  */
 router.delete("/wishList/remove/:id", checkToken, wishListRemoveData);
+
+
 
 export default router;

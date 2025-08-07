@@ -1,8 +1,9 @@
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { FaHeart, FaStar, FaArrowLeft } from "react-icons/fa";
+import PlaceOrder from './PlaceOrder';
 
 import { ToastContainer, toast } from "react-toastify";
 import instance from "./axiosConfig.js";
@@ -20,6 +21,8 @@ function Singleproject() {
   const [cartLoading, setCartLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [showPlaceOrder, setShowPlaceOrder] = useState(false);
+
 
   const { wishlistIds, Quantity, user, Cart ,CartDetials} = useContext(UserContext);
 
@@ -365,6 +368,12 @@ function Singleproject() {
                           : "Add to Wishlist"}
                       </span>
                     </button>
+             
+                    <button   onClick={() => setShowPlaceOrder(true)} className="flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-800 text-white shadow-2xl hover:scale-105 hover:bg-green-700 hover:border-2 hover:border-green-600">
+                      Place Order
+                    </button>
+                    <PlaceOrder isOpen={showPlaceOrder} onClose={() => setShowPlaceOrder(false)} />
+
                   </>
                 )}
               </div>

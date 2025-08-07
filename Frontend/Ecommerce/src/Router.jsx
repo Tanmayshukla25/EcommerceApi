@@ -15,6 +15,7 @@ import ProductList from "./ProductList.jsx";
 import Register from "./Register.jsx";
 import AddProductForm from "./AddProductForm.jsx";
 import Wishlist from "./AddToCart.jsx";
+import PlaceOrder from "./PlaceOrder.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,15 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
        <Wishlist /> 
+          </ProtectedRoute>
+        ),
+      },
+
+        {
+        path: "placeorder",
+        element: (
+          <ProtectedRoute>
+       <PlaceOrder /> 
           </ProtectedRoute>
         ),
       },

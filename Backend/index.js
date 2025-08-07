@@ -15,13 +15,34 @@ import cookieParser from 'cookie-parser';
 const app =express()
 const port = process.env.PORT
 
-app.use(
-    cors({
-        origin :process.env.FRONTEND_URL,
-        method:["GET","POST","PUT","DELETE"],
-        credentials:true,
-    })
-);
+// app.use(
+//     cors({
+//         origin :process.env.FRONTEND_URL,
+//         method:["GET","POST","PUT","DELETE"],
+//         credentials:true,
+//     })
+// );
+
+const allowedOrigins = [process.env.DEPLOYED_FRONTEND_URL];
+
+const localhostRegex = /^(https:\/\/localhost:\d+|http:\/\/localhost:\d+)$/;
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      localhostRegex.test(origin)
+    ) {
+      return callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true, 
+};
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());

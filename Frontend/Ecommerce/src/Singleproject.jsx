@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { FaHeart, FaStar, FaArrowLeft } from "react-icons/fa";
-import PlaceOrder from './PlaceOrder';
+import PlaceOrder from "./PlaceOrder";
 
 import { ToastContainer, toast } from "react-toastify";
 import instance from "./axiosConfig.js";
@@ -23,8 +23,8 @@ function Singleproject() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [showPlaceOrder, setShowPlaceOrder] = useState(false);
 
-
-  const { wishlistIds, Quantity, user, Cart ,CartDetials} = useContext(UserContext);
+  const { wishlistIds, Quantity, user, Cart, CartDetials } =
+    useContext(UserContext);
 
   const isWishlisted = wishlistIds.includes(product?.id);
 
@@ -39,9 +39,8 @@ function Singleproject() {
     image: null,
   });
 
- 
   useEffect(() => {
-     window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     async function fetchProduct() {
       setLoading(true);
       try {
@@ -57,7 +56,6 @@ function Singleproject() {
           image: null,
         });
 
-        
         const allProductsRes = await instance.get("/product/all");
         const allProducts = allProductsRes.data;
 
@@ -65,11 +63,6 @@ function Singleproject() {
           (item) => item.category === data.category && item._id !== data._id
         );
         setRelatedProducts(related);
-        
-        // const CartDetial=CartDetials
-        // const cartItems=CartDetial.filter((item)=>item._id)
-
-        
       } catch (e) {
         console.error("Error fetching product or related:", e);
       } finally {
@@ -170,7 +163,7 @@ function Singleproject() {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    const updatedForm = new FormData(); 
+    const updatedForm = new FormData();
 
     updatedForm.append("name", formData.name);
     updatedForm.append("category", formData.category);
@@ -180,7 +173,7 @@ function Singleproject() {
     updatedForm.append("description", formData.description);
 
     if (formData.image) {
-      updatedForm.append("image", formData.image); 
+      updatedForm.append("image", formData.image);
     }
 
     for (let [key, value] of updatedForm.entries()) {
@@ -194,7 +187,7 @@ function Singleproject() {
         {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data", 
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -368,12 +361,34 @@ function Singleproject() {
                           : "Add to Wishlist"}
                       </span>
                     </button>
-             
-                    <button   onClick={() => setShowPlaceOrder(true)} className="flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-800 text-white shadow-2xl hover:scale-105 hover:bg-green-700 hover:border-2 hover:border-green-600">
+
+                  
+                    <button
+                      onClick={() => {
+                        if (!user) {
+                          toast.error("Please login to place an order");
+                          navigate(
+                            `/login?referer=${encodeURIComponent(
+                              location.pathname
+                            )}`
+                          );
+                        } else {
+                          setShowPlaceOrder(true);
+                        }
+                      }}
+                      className="flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-800 text-white shadow-2xl hover:scale-105 hover:bg-green-700 hover:border-2 hover:border-green-600"
+                    >
                       Place Order
                     </button>
-                    <PlaceOrder isOpen={showPlaceOrder} onClose={() => setShowPlaceOrder(false)} />
 
+                    {user && (
+                      <PlaceOrder
+                        isOpen={showPlaceOrder}
+                        onClose={() => setShowPlaceOrder(false)}
+                      />
+                    )}
+
+                  
                   </>
                 )}
               </div>
@@ -554,7 +569,9 @@ function Singleproject() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-gray-200">
                 <div className="flex items-center space-x-3 text-sm text-gray-600 bg-green-50 p-3 rounded-lg">
                   <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                  <span className="font-medium">In Stock : {formData.quantity}</span>
+                  <span className="font-medium">
+                    In Stock : {formData.quantity}
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-gray-600 bg-blue-50 p-3 rounded-lg">
                   <span className="w-3 h-3 bg-blue-500 rounded-full"></span>

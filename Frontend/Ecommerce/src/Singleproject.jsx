@@ -8,7 +8,7 @@ import PlaceOrder from "./PlaceOrder";
 import { ToastContainer, toast } from "react-toastify";
 import instance from "./axiosConfig.js";
 import { MdDelete, MdEdit } from "react-icons/md";
-
+import { HiOutlineShoppingBag } from "react-icons/hi";
 function Singleproject() {
   const { id } = useParams();
 
@@ -376,9 +376,9 @@ function Singleproject() {
                           setShowPlaceOrder(true);
                         }
                       }}
-                      className="flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-800 text-white shadow-2xl hover:scale-105 hover:bg-green-700 hover:border-2 hover:border-green-600"
+                      className=" group flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-600 hover:to-yellow-800 text-white shadow-2xl hover:scale-105 hover:bg-green-700 hover:border-2 hover:border-yellow-600"
                     >
-                      Place Order
+                      <HiOutlineShoppingBag size={25} className="mr-2 font-bold group-hover:rotate-15"/>Place Order
                     </button>
 
                     {user && (

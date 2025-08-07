@@ -13,9 +13,21 @@ function Register() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState("User");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    // Validate email ends with @gmail.com
+    if (value && !/^[\w.+/-]+@gmail\.com$/.test(value)) {
+      setError("Please enter a valid Gmail address (e.g., example@gmail.com)");
+    } else {
+      setError("");
+    }
+  };
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -129,10 +141,11 @@ function Register() {
                 type="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 placeholder="Enter your email"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               />
+              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             </div>
 
             <div>

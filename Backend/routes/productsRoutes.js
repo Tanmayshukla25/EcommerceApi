@@ -107,6 +107,18 @@ router.post("/cart/:id", checkToken, CartData);
  */
 router.post("/wishlist/:id", checkToken, wishlist);
 
+/**
+ * @swagger
+ * /product/wishlist/Data:
+ *   get:
+ *     summary: Get wishlist items
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: List of wishlist items
+ */
+
 router.get("/wishlist/Data", checkToken, getWishlistData);
 
 /**
@@ -194,6 +206,23 @@ router.get("/cart/data", checkToken, getCartData);
  *         description: Product removed from cart
  */
 router.delete("/cartData/remove/:id", checkToken, removeData);
+
+/**
+ * @swagger
+ * /product/wishList/remove/{id}:
+ *   delete:
+ *     summary: Remove product from wishlist
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the product to remove from wishlist
+ *     responses:
+ *       200:
+ *         description: Product removed from wishlist
+ */
 router.delete("/wishList/remove/:id", checkToken, wishListRemoveData);
 
 export default router;

@@ -2,7 +2,7 @@ import express from "express";
 import passport from "../config/passport.js";
 
 const router = express.Router();
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://ecommerceapi-frontend.onrender.com";
 
 // Step 1: Google pe bhejo
 router.get(

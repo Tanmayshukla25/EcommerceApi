@@ -63,10 +63,10 @@ const handleRemove = async (productId) => {
 };
 
   return (
-    <div className="min-h-screen bg-gray-500 py-10  px-4 sm:px-8">
+    <div className="min-h-screen  bg-gradient-to-br from-slate-600 via-gray-700 to-slate-800 py-10  px-4 sm:px-8">
       <ToastContainer />
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Your Wishlist</h2>
+        <h2 className="text-3xl font-bold mb-6 text-white">Your Wishlist</h2>
 
         {wishlistIds.length === 0 ? (
           <div className="bg-white p-6 rounded-lg shadow text-center text-gray-600">

@@ -178,7 +178,7 @@ function Header() {
   }
   return (
     <div className="relative">
-      <div className="w-full bg-gray-700 shadow-2xl fixed top-0 left-0 z-50 backdrop-blur-sm">
+      <div className="w-full bg-gradient-to-br from-slate-800 via-gray-800 to-slate-800 shadow-2xl fixed top-0 left-0 z-50 backdrop-blur-sm">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-2 left-10 animate-pulse">
             <FaStar className="text-yellow-300 text-xs opacity-70" />

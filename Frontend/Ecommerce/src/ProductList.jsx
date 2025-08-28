@@ -73,7 +73,7 @@ const ProductList = () => {
     product?.name?.toLowerCase().includes(input.toLowerCase())
   );
   return (
-    <div className="min-h-screen bg-gray-500 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-slate-600 via-gray-700 to-slate-800  py-12">
       <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 bg-clip-text text-transparent mb-4">

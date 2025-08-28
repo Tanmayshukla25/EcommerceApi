@@ -3,7 +3,7 @@ import { FaBoxOpen, FaTags, FaLock, FaTruck, FaHeadset } from "react-icons/fa";
 
 function About() {
   return (
-    <div className="min-h-screen bg-gray-500 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen  bg-gradient-to-br from-slate-600 via-gray-700 to-slate-800 flex items-center justify-center px-4 py-12">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-2xl p-10 space-y-8">
         <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-4 tracking-tight">
           📦 Start Shopping Today!

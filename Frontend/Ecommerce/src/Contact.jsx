@@ -38,7 +38,7 @@ function Contact() {
   }, [save]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-gray-400 via-gray-500 to-gray-700 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen  bg-gradient-to-br from-slate-600 via-gray-700 to-slate-800 flex items-center justify-center px-4 py-12">
       <ToastContainer />
 
       <div className="grid md:grid-cols-2 gap-10 max-w-5xl w-full bg-white/90 shadow-2xl rounded-2xl p-0 overflow-hidden">

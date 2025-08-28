@@ -14,7 +14,7 @@ import "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4040;
 
 
 const allowedOrigins = [process.env.DEPLOYED_FRONTEND_URL];
@@ -64,6 +64,6 @@ app.use("/auth", authRoutes);
 connectToDB();
 
 
-app.listen(port, () => {
-  console.log(`🚀 Server running at port ${port}`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`🚀 Server running at http://0.0.0.0:${port}`);
 });

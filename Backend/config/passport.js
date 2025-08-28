@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL, // e.g., http://localhost:4040/auth/google/callback
+      callbackURL: process.env.GOOGLE_CALLBACK_URL, 
     },
     async (_accessToken, _refreshToken, profile, done) => {
       try {
@@ -27,14 +27,14 @@ passport.use(
           });
         }
 
-        // JWT generation
+    
         const token = jwt.sign(
           { id: user._id, email: user.email, role: user.role },
           process.env.JWT_SECRET,
           { expiresIn: "5h" }
         );
 
-        // Return user object with token
+  
         return done(null, {
           _id: user._id,
           email: user.email,
@@ -48,7 +48,7 @@ passport.use(
   )
 );
 
-// Disable session serialization (since you're using JWT)
+
 passport.serializeUser((user, done) => {
   done(null, user);
 });

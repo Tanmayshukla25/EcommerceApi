@@ -4,13 +4,13 @@ import passport from "../config/passport.js";
 const router = express.Router();
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://ecommerceapi-frontend.onrender.com";
 
-// Step 1: Google pe bhejo
+
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"], prompt: "select_account" })
 );
 
-// Step 2: Google callback
+
 router.get(
   "/google/callback",
   passport.authenticate("google", { session: false, failureRedirect: `${FRONTEND_URL}/login` }),
@@ -21,11 +21,11 @@ router.get(
     res
       .cookie("userToken", token, {
         httpOnly: true,
-        secure: isProd ? true : false,         // local dev: false; prod: true
-        sameSite: isProd ? "None" : "Lax",     // prod (cross-site) => None
-        maxAge: 5 * 60 * 60 * 1000,            // 5h
+        secure: isProd ? true : false,        
+        sameSite: isProd ? "None" : "Lax",    
+        maxAge: 5 * 60 * 60 * 1000,            
       })
-      .redirect(FRONTEND_URL); // login ke baad frontend pe
+      .redirect(FRONTEND_URL);
   }
 );
 

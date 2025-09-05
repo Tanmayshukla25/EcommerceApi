@@ -63,7 +63,7 @@ function First() {
         console.error("Data fetch error:", e);
         setUser(null);
         setWishlistIds([]);
-        setCart(0);
+        setCart(0); 
       } finally {
         setLoading(false);
       }

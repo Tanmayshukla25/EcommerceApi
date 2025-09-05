@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import instance from "./axiosConfig.js";
 import { UserContext } from "./UserContext.jsx";
-
+import {Link} from "react-router-dom";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);

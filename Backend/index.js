@@ -1,4 +1,3 @@
-
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
@@ -65,5 +64,5 @@ connectToDB();
 
 
 app.listen(port, "0.0.0.0", () => {
-  console.log(`🚀 Server running at http://0.0.0.0:${port}`);
+  console.log(`Server running at http://0.0.0.0:${port}`);
 });
